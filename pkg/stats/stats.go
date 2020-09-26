@@ -1,7 +1,7 @@
 package stats
 
 import (
-	"github.com/JovidYnwa/bank/pkg/types"
+	"github.com/JovidYnwa/bank/v2/pkg/types"
 )
 
 //Avg рассчитать среднюю сумму платежа.
@@ -14,8 +14,10 @@ func Avg(payments []types.Payment) types.Money {
 	}
 
 	for i := 0; i < len(payments); i++ {
-		paySum += payments[i].Amount
-		payCount++
+		if payments[i].Status != "StatusFail" {
+			paySum += payments[i].Amount
+			payCount++
+		}
 	}
 
 	return paySum / payCount
@@ -29,7 +31,7 @@ func TotalInCategory(payments []types.Payment, category types.Category) types.Mo
 	}
 
 	for _, payment := range payments {
-		if category == payment.Category {
+		if category == payment.Category && payment.Status != "StatusFail" {
 			sum = sum + int(payment.Amount)
 		}
 	}
