@@ -14,7 +14,7 @@ func Avg(payments []types.Payment) types.Money {
 	}
 
 	for i := 0; i < len(payments); i++ {
-		if payments[i].Status != "StatusFail" {
+		if payments[i].Status != types.StatusFail {
 			paySum += payments[i].Amount
 			payCount++
 		}
@@ -31,7 +31,7 @@ func TotalInCategory(payments []types.Payment, category types.Category) types.Mo
 	}
 
 	for _, payment := range payments {
-		if category == payment.Category && payment.Status != "StatusFail" {
+		if category == payment.Category && payment.Status != types.StatusFail {
 			sum = sum + int(payment.Amount)
 		}
 	}
