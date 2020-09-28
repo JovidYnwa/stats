@@ -64,8 +64,8 @@ func CategoriesTotal(payments []types.Payment) map[types.Category]types.Money {
 
 //CategoriesAvg calculates avg payment for every category
 func CategoriesAvg(payments []types.Payment) map[types.Category]types.Money {
-	countCategories := map[types.Category]types.Money{}
 	sumCategories := map[types.Category]types.Money{}
+	countCategories := map[types.Category]types.Money{}
 	avgAmount := map[types.Category]types.Money{}
 
 	for _, payment := range payments {
@@ -79,4 +79,23 @@ func CategoriesAvg(payments []types.Payment) map[types.Category]types.Money {
 	}
 
 	return avgAmount
+}
+
+//PeriodsDynamic calculatets difference payment with categories in periods
+func PeriodsDynamic(first map[types.Category]types.Money, second map[types.Category]types.Money) map[types.Category]types.Money {
+	differences := map[types.Category]types.Money{}
+
+	for firstIndex, firstItem := range first {
+		differences[firstIndex] = second[firstIndex] - firstItem
+	}
+
+	for secondIndex, secondItem := range second {
+		_, ok := differences[secondIndex]
+
+		if !ok {
+			differences[secondIndex] = secondItem
+		}
+	}
+
+	return differences
 }

@@ -100,3 +100,28 @@ func TestCategoriesTotal(t *testing.T) {
 		t.Errorf("invalid result, expected: %v, actual: %v", expected, result)
 	}
 }
+
+func TestPeriodsDynamic(t *testing.T) {
+	firstPaymet := map[types.Category]types.Money{
+		"Category1": 10,
+		"Category2": 20,
+	}
+
+	secondPayment := map[types.Category]types.Money{
+		"Category1": 10,
+		"Category2": 15,
+		"Category3": 5,
+	}
+
+	expected := map[types.Category]types.Money{
+		"Category1": 0,
+		"Category2": -5,
+		"Category3": 5,
+	}
+
+	result := PeriodsDynamic(firstPaymet, secondPayment)
+
+	if !reflect.DeepEqual(expected, result) {
+		t.Errorf("Invalid result: %v, actual: %v", expected, result)
+	}
+}

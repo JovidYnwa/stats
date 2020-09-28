@@ -18,33 +18,24 @@ func main() {
 	//fmt.Println(top3)
 	//fmt.Println(categories)
 
-	payments := []types.Payment{
-		{
-			ID:       1,
-			Amount:   10_000,
-			Category: "Category#1",
-			Status:   types.StatusOk,
-		},
-		{
-			ID:       2,
-			Amount:   20_000,
-			Category: "Category#3",
-			Status:   types.StatusOk,
-		},
-		{
-			ID:       3,
-			Amount:   30_000,
-			Category: "Category#1",
-			Status:   types.StatusFail,
-		},
+	firstPaymet := map[types.Category]types.Money{
+		"Category1": 10,
+		"Category2": 20,
 	}
 
+	secondPayment := map[types.Category]types.Money{
+		"Category1": 10,
+		"Category2": 15,
+		"Category3": 5,
+	}
 	//fmt.Println(payments, "Category#3")
 	/* 	categories := map[types.Category]types.Money{
 		"auto": 1_000_00,
 		"food": 2_000_00,
 	} */
 
-	result := stats.CategoriesAvg(payments)
+	//result := stats.CategoriesAvg(payments)
+	result := stats.PeriodsDynamic(firstPaymet, secondPayment)
+
 	fmt.Println(result)
 }
